@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :product do
-    name { Faker::Lorem.words }
+    name { Faker::Commerce.product_name }
     sold_out false
-    category { Faker::Lorem.words }
+    category "makeup"
     under_sale false
     price { Faker::Number.number(4) }
     sale_price { Faker::Number.number(4) }

@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+require 'factory_girl_rails'
+
+10.times do
+  FactoryGirl.create :product
+end
+
+2.times do
+  FactoryGirl.create :product, category: "brushes"
+end
