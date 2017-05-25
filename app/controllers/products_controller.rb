@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
   def index
     total, products = Product.get_by_filter(
             params[:category], params[:limit],
-            params[:offset], params[:order])
+            params[:page], params[:order])
 
     json_response({
       :total => total,

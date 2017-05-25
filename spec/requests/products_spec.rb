@@ -59,7 +59,7 @@ RSpec.describe 'Products API', type: :request do
     end
 
     it 'returns empty products' do
-      get '/products', {:category => 'tools'}
+      get '/products', params: {:category => 'tools'}
       expect(json).not_to be_empty
       expect(json['total']).to eq(0)
       expect(json['products'].size).to eq(0)
@@ -69,16 +69,16 @@ RSpec.describe 'Products API', type: :request do
 
   describe 'GET products with pagination' do
     it 'returns the first n products' do
-      get '/products', params: {:limit => 5, :offset => 0}
+      get '/products', params: {:limit => 6, :page => 1}
       expect(json['total']).to eq(10)
-      expect(json['products'].size).to eq(5)
+      expect(json['products'].size).to eq(6)
     end
 
     it 'returns the 2nd n products' do
-      get '/products', params: {:limit => 5, :offset => 5}
+      get '/products', params: {:limit => 6, :page => 2}
       expect(json).not_to be_empty
       expect(json['total']).to eq(10)
-      expect(json['products'].size).to eq(5)
+      expect(json['products'].size).to eq(4)
     end
   end
 
@@ -100,13 +100,12 @@ RSpec.describe 'Products API', type: :request do
 
   describe 'GET products combining filter and pagination' do
     it 'returns products in acending order' do
-      create(:product, price: 1)
-      create(:product, price: 10)
+      create(:product, price: 8)
 
-      get '/products', params: {:category => 'makeup', :order => 'asc', :limit => 5, :offset => 1}
-      expect(json['total']).to eq(12)
+      get '/products', params: {:category => 'makeup', :order => 'asc', :limit => 5, :page => 1}
+      expect(json['total']).to eq(11)
       expect(json['products'].size).to eq(5)
-      expect(json['products'][0]['price']).to eq(10)
+      expect(json['products'][0]['price']).to eq(8)
     end
   end
 end

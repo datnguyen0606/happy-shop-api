@@ -3,9 +3,9 @@ class Product < ApplicationRecord
   validates_numericality_of :price, :sale_price
 
   LIMIT = 20
-  OFFSET = 0
+  PAGE = 1
 
-  def self.get_by_filter(category, limit, offset, order)
+  def self.get_by_filter(category, limit, page, order)
     products = Product.all
     unless category.blank?
       products = products.where(category: category)
@@ -17,8 +17,8 @@ class Product < ApplicationRecord
     end
 
     limit ||= LIMIT
-    offset ||= OFFSET
-    products = products.limit(limit).offset(offset)
+    page ||= PAGE
+    products = products.paginate(page: page, per_page: limit)
     return total, products
   end
 end

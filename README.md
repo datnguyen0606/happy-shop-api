@@ -49,7 +49,7 @@
 
    `limit=[int] (default 20)`
 
-   `offset=[int] (default 0)`
+   `page=[int] (default 1)`
 
    `order=[string] (value: asc, desc)`
 
